@@ -1,0 +1,37 @@
+Description: Creates an S3 bucket
+Parameters:
+  ResourceName:
+    Description: Name for the Resource
+    AllowedPattern: ^([a-z0-9_-]*)?$
+    Type: String
+    Default: cf-source
+  Creator:
+    Description: Creator's Name
+    AllowedPattern: ^([A-Za-z ]*)?$
+    Type: String
+    Default: Tim Hessing
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub $(ResourceName}-${AWS::Region}-${AWS::AccountId}
+      VersioningConfiguration: 
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+            BucketKeyEnabled: true
+      Tags:
+      - Key: ResourceName
+        Value: !Sub $(ResourceName}-${AWS::Region}-${AWS::AccountId}
+      - Key: Creator
+        Value: !Ref Creator
+      - Key: Purpose
+        Value: This bucket stores source code and other objects needed to build Infrastructure as Code using CloudFormation.
+
+Outputs:
+  oS3bucket:
+    Value: !Ref S3Bucket
+    Description: S3 Bucket Name
