@@ -169,3 +169,6 @@ The access and secret keys for this user will be needed by QRadar to access the 
 <li>Click <b>Next: Review</b> button.</li>
 <li>Click <b>Create user</b> button.</li>
 </ul>
+
+### Send Information to QRadar Team
+Fill out spreadsheet and send to QRadar Team.
